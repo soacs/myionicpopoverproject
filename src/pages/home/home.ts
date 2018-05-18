@@ -15,13 +15,22 @@ export class HomePage {
   constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
   }
 
-  presentPopover() {
+  presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(PopoverPage, { "movie": "Jurassic World"});
     popover.onDidDismiss(data => {
       console.log(data);
       this.popupData = data;
     });
-    popover.present();
+    let ev = {
+      target : {
+        getBoundingClientRect : () => {
+          return {
+            top: 10
+          };
+        }
+      }
+    };
+      popover.present({ev});
   }
 
 }
